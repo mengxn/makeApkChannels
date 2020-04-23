@@ -7,7 +7,7 @@
 
 ## 使用方法
 `makeApkChannels.py [your path].apk`
-![执行结果](result.jpg)
+![执行结果](result.png)
 
 ## 配置
 你需要编辑**makeApkChannels.py**文件，配置你自己的信息
