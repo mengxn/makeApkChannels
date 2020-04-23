@@ -6,19 +6,22 @@
 4. 使用jarsigner或apksigner对apk文件进行签名
 
 ## 使用方法
-`makeApkChannels.py [your path].apk`
-![执行结果](result.png)
+`makeApkChannels.py [your path].apk`  
+你会得到如下结果:
+![](result.png)
 
 ## 配置
-你需要编辑**makeApkChannels.py**文件，配置你自己的信息
-``` python
-channel_key = 'InstallChannel'
-# you can add more channels
-channels = ['myapp', 'xiaomi', 'huawei', 'vivo', 'oppo']
-key_path = 'your key path'
-key_alias = 'your key alias'
-key_pass = 'your key password'
-```
+- 你需要编辑**makeApkChannels.py**文件，配置你自己的信息
+    ``` python
+    channel_key = 'InstallChannel'
+    # you can add more channels
+    channels = ['myapp', 'xiaomi', 'huawei', 'vivo', 'oppo']
+    key_path = 'your key path'
+    key_alias = 'your key alias'
+    key_pass = 'your key password'
+    ```
+- 将apksigner`[your path]/Android/sdk/build-tools/29.0.2/apksigner`配置到系统环境下
+
 ### 可选配置
 - 将**makeApkChannels.py**文件放入系统环境下
 - 为**makeApkChannels.py**文件附加可执行权限,`chmod a+x makeApkChannels.py`
@@ -26,7 +29,6 @@ key_pass = 'your key password'
 你就可以在任何目录下执行此脚本了。
 
 ## 依赖库
-- python3
-- apktool
+- [python3](https://realpython.com/installing-python/)
+- [apktool](https://ibotpeaches.github.io/Apktool/install/)
 - apksigner
-
