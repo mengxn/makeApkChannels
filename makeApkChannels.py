@@ -43,13 +43,16 @@ def make_channels(apk_file, channels):
 
     xml_file = '%s/%s' % (apk_dir_name, 'AndroidManifest.xml')
     for channel in channels:
-        print('ready to change channel', channel)
+        # change channel
         replace_channel(xml_file, channel)
-        channel_apk_name = '%s_%s.apk' % (apk_dir_name, channel)
-        print('ready to build apk')
-        os.system('apktool b %s -o %s' % (apk_dir_name, channel_apk_name))
-        print('ready to sign apk')
-        os.system('apksigner sign -v --ks %s --ks-key-alias %s --ks-pass pass:%s %s' % (key_path, key_alias, key_pass, channel_apk_name,))
+        unaligned_apk = '%s_%s_unaligned.apk' % (apk_dir_name, channel)
+        # rebuild apk
+        os.system('apktool b %s -o %s' % (apk_dir_name, unaligned_apk))
+        # zip align
+        align_apk = '%s_%s.apk' % (apk_dir_name, channel)
+        os.system('zipalign -pfv 4 %s %s' % (unaligned_apk, align_apk))
+        # sign apk
+        os.system('apksigner sign -v --ks %s --ks-key-alias %s --ks-pass pass:%s %s' % (key_path, key_alias, key_pass, align_apk,))
 
     # clear temp data
     if os.path.exists(apk_dir_name):
