@@ -51,6 +51,8 @@ def make_channels(apk_file, channels):
         # zip align
         align_apk = '%s_%s.apk' % (apk_dir_name, channel)
         os.system('zipalign -pfv 4 %s %s' % (unaligned_apk, align_apk))
+        # remove unaligned apk
+        os.remove(unaligned_apk)
         # sign apk
         os.system('apksigner sign -v --ks %s --ks-key-alias %s --ks-pass pass:%s %s' % (key_path, key_alias, key_pass, align_apk,))
 
