@@ -13,6 +13,15 @@ key_alias = 'your key alias'
 key_pass = 'your key password'
 
 
+# parse channels
+def parse_channels(path):
+    if os.path.exists(path):
+        with open(path, 'r') as file:
+            global channels
+            channels = file.readline().split(',')
+    return channels
+
+
 def replace_channel(path, channel):
     if not os.path.exists(path):
         print('file not exist')
@@ -66,12 +75,13 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         dir_name = os.path.dirname(sys.argv[1])
         if dir_name:
-            print('change dir ', dir_name)
+            print('change dir', dir_name)
             os.chdir(dir_name)
         file_name = os.path.basename(sys.argv[1])
         if file_name.endswith('.apk'):
+            channels = parse_channels('channels.conf')
             make_channels(file_name, channels)
+        print('Finished! Channels list ', channels)
     else:
         print('error: please input apk file')
-
     pass
